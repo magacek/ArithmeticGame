@@ -18,7 +18,10 @@ Choice Functionaliy
 Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
+
+
 ![arithmetic](https://github.com/magacek/ArithmeticGame/assets/70607808/057f50e2-b96b-4bf0-8f65-4a9da90b02c4)
+
 
 
 <img src='walkthrough.gif' title='Video Walkthrough' width='50%' alt='Video Walkthrough' />
