@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/background_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/hated_math" />
+
+
+    <TextView
+        android:id="@+id/difficulty_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/background_image"
+        android:layout_marginStart="0dp"
+        android:text="Select Difficulty"
+        android:textColor="#AAAAAA"
+        android:paddingTop="16dp"
+        android:textSize="20sp"/>
+
+
+
+        <RadioGroup
+            android:id="@+id/radioGroupDifficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/difficulty_title"
+            android:layout_marginStart="0dp"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:textSize="18sp"
+            >
+
+            <RadioButton
+                android:id="@+id/radioEasy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Easy"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <RadioButton
+                android:id="@+id/radioMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medium"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <RadioButton
+                android:id="@+id/radioHard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hard"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/operation_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/background_image"
+            android:layout_marginEnd="60dp"
+            android:layout_alignParentEnd="true"
+            android:text="Select Operation"
+            android:textColor="#AAAAAA"
+            android:paddingTop="16dp"
+            android:textSize="20sp"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupOperation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/operation_title"
+            android:layout_marginEnd="60dp"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            >
+
+            <RadioButton
+                android:id="@+id/radioAddition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Addition"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <RadioButton
+                android:id="@+id/radioMultiplication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Multiplication"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <RadioButton
+                android:id="@+id/radioDivision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Division"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <RadioButton
+                android:id="@+id/radioSubtraction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subtraction"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+
+
+        </RadioGroup>
+
+
+    <TextView
+        android:id="@+id/questions_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radioGroupOperation"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:text="Number of Questions"
+        android:paddingTop="28dp"
+        android:textSize="32sp"
+        android:textColor="#AAAAAA"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/questions_title"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/decrement_button"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/button_background"
+            android:text="-"
+            android:textColor="#AAAAAA"
+            android:textStyle="bold"
+            android:textSize="45sp"
+            android:layout_marginTop="5dp"/>
+
+        <EditText
+            android:id="@+id/numberQuestions"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:inputType="number"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:background="@null"/>
+
+        <Button
+            android:id="@+id/increment_button"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/button_background"
+            android:text="+"
+            android:textColor="#AAAAAA"
+            android:textStyle="bold"
+            android:textSize="45sp"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/startButton"
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/light_gray"
+            android:text="START"
+            android:textSize="40sp"/>
+
+
+</RelativeLayout>
