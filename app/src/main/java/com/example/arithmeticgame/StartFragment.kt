@@ -1,25 +1,33 @@
 package com.example.arithmeticgame
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 
 /**
- * A fragment that serves as the starting point for the arithmetic quiz.
+ * A fragment representing the initial setup for the arithmetic quiz.
  * <p>
- * It provides user interface elements for the user to select a difficulty level, arithmetic operation,
- * and specify the number of questions for the quiz. It also features increment and decrement buttons
- * to adjust the number of questions.
- * Once the user is ready, they can initiate the quiz by clicking on the start button.
+ * This fragment provides various user interface elements that allow the user to tailor their quiz experience:
+ * - Selection of difficulty level (easy, medium, hard).
+ * - Choice of arithmetic operation (addition, subtraction, multiplication, division).
+ * - Setting the total number of questions via an input field, complemented by increment and decrement buttons.
+ *
+ * Upon defining their preferences, users can initiate the quiz by tapping the start button. If the quiz has
+ * been previously attempted, the user's score is displayed prominently, providing feedback on their last performance.
+ * This score display dynamically adjusts the layout, ensuring a cohesive and intuitive interface.
  * </p>
  *
- * @author [Matt Gacek] //
- * @version 1.0
+ * @author [Matt Gacek]
+ * @version 2.0
  */
 class StartFragment : Fragment(R.layout.fragment_start) {
 
@@ -53,26 +61,63 @@ class StartFragment : Fragment(R.layout.fragment_start) {
 
         view.findViewById<Button>(R.id.startButton).setOnClickListener {
             // Get user's choices
-            val selectedDifficulty = when (view.findViewById<RadioGroup>(R.id.radioGroupDifficulty).checkedRadioButtonId) {
-                R.id.radioEasy -> "easy"
-                R.id.radioMedium -> "medium"
-                R.id.radioHard -> "hard"
-                else -> "easy" // Default
-            }
+            val selectedDifficulty =
+                when (view.findViewById<RadioGroup>(R.id.radioGroupDifficulty).checkedRadioButtonId) {
+                    R.id.radioEasy -> "easy"
+                    R.id.radioMedium -> "medium"
+                    R.id.radioHard -> "hard"
+                    else -> "easy" // Default
+                }
 
-            val selectedOperation = when (view.findViewById<RadioGroup>(R.id.radioGroupOperation).checkedRadioButtonId) {
-                R.id.radioAddition -> "addition"
-                R.id.radioSubtraction -> "subtraction"
-                R.id.radioMultiplication -> "multiplication"
-                R.id.radioDivision -> "division"
-                else -> "addition" // Default
-            }
+            val selectedOperation =
+                when (view.findViewById<RadioGroup>(R.id.radioGroupOperation).checkedRadioButtonId) {
+                    R.id.radioAddition -> "addition"
+                    R.id.radioSubtraction -> "subtraction"
+                    R.id.radioMultiplication -> "multiplication"
+                    R.id.radioDivision -> "division"
+                    else -> "addition" // Default
+                }
 
             val numberOfQuestions = numberOfQuestionsInput.text.toString().toIntOrNull() ?: 10
 
             // Navigate to QuizFragment
-            val action = StartFragmentDirections.actionToQuiz(selectedDifficulty, selectedOperation, numberOfQuestions)
+            val action = StartFragmentDirections.actionToQuiz(
+                selectedDifficulty,
+                selectedOperation,
+                numberOfQuestions
+            )
             findNavController().navigate(action)
         }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Bundle>("QUIZ_RESULT")?.observe(viewLifecycleOwner, Observer { result ->
+            val correctAnswers = result.getInt("correctAnswers")
+            val totalQuestions = result.getInt("totalQuestions")
+            val selectedOperation = result.getString("selectedOperation") ?: "operation"
+
+            val formattedOperation = when(selectedOperation) {
+                "addition" -> "addition"
+                "subtraction" -> "subtraction"
+                "multiplication" -> "multiplication"
+                "division" -> "division"
+                else -> "operation"
+            }
+
+            val percentage = (correctAnswers.toDouble() / totalQuestions.toDouble()) * 100
+            val resultTextView = view.findViewById<TextView>(R.id.resultTextView)
+
+            if (percentage >= 80) {
+                resultTextView.text = "You got $correctAnswers out of $totalQuestions correct in $formattedOperation. Good work!"
+
+            } else {
+                resultTextView.text = "You got $correctAnswers out of $totalQuestions correct in $formattedOperation. You need to practice more!"
+                resultTextView.setTextColor(Color.RED)
+            }
+
+            resultTextView.visibility = View.VISIBLE
+        })
+
+
     }
-}
+
+    }
+
